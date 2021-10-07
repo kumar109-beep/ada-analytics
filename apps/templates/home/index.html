@@ -1,0 +1,580 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- Header -->
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+      </div>
+      <div class="row">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+<!-- ==================================================================================================================================================== -->
+<!-- ==================================================================================================================================================== -->
+<!-- ==================================================================================================================================================== -->
+  <div class="row">
+    <div class="col-lg-12 text-right mb-2">
+      <!-- <label for="" style="color: white;font-weight: bolder;"> Master Filter &nbsp;&nbsp;</label> -->
+      <select class="form-select btn btn-secondary" id="masterFilter" aria-label="Default select example" onchange="masterFilter()">
+        <option class="d-none">Filter</option>
+              <option value="All Time">All Time</option>
+              <option value="Today" selected>Today</option>
+              <!-- <option value="yesterday">Yesterday</option> -->
+              <option value="Last 7 Days">Last 7 Days</option>
+              <option value="Current Month">Current Month</option>
+              <option value="Last Month">Last Month</option>
+      </select>
+    </div>
+    <div class="col-xl-6" id="masterDiv1">
+      <div class="card">
+        <div class="card-header border-0">
+          <div class="col text-right">
+            <select class="form-select btn btn-sm btn-primary" id="masterFilter_1" aria-label="Default select example" onchange="masterFilter1()">
+              <option class="d-none">Filter</option>
+              <option value="All Time" selected>All Time</option>
+              <option value="Today" >Today</option>
+              <!-- <option value="yesterday">Yesterday</option> -->
+              <option value="Last 7 Days">Last 7 Days</option>
+              <option value="Current Month">Current Month</option>
+              <option value="Last Month">Last Month</option>
+              </select>
+          </div>
+        </div>
+        <div class="col-lg-12" style="display: flex;">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Total Customers</h5>
+                    <span class="h2 font-weight-bold mb-0 masterDiv1" id="totalCustomers">{{totalCustomer}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                      <i class="ni ni-active-40"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Total Orders</h5>
+                    <span class="h2 font-weight-bold mb-0 masterDiv1" id="totalOrders">{{totalOrders}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                      <i class="ni ni-chart-pie-35"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-12" style="display: flex;">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Total Today Order Amount</h5>
+                    <span class="h2 font-weight-bold mb-0">{{todayTotalOrdersAmount}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                      <i class="ni ni-money-coins"></i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Total Revenue</h5>
+                    <span class="h2 font-weight-bold mb-0 masterDiv1" id="total_Reveue">{{totalRevenue}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                      <i class="ni ni-chart-bar-32"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6"  id="masterDiv2">
+      <div class="card">
+        <div class="card-header border-0">
+          <div class="col text-right">
+            <select class="form-select btn btn-sm btn-primary" id="master_filter_2" aria-label="Default select example" onchange="masterFilter2()">
+              <option class="d-none">Filter</option>
+              <option value="All Time">All Time</option>
+              <option value="Today" selected>Today</option>
+              <!-- <option value="yesterday">Yesterday</option> -->
+              <option value="Last 7 Days">Last 7 Days</option>
+              <option value="Current Month">Current Month</option>
+              <option value="Last Month">Last Month</option>
+            </select>
+              </select>
+          </div>
+        </div>
+        <div class="col-lg-12" style="display: flex;">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0" id="totalTodays_orders-2-para">Total Order Today</h5>
+                    <span class="h2 font-weight-bold mb-0 masterDiv2" id="totalTodays_orders-2">{{todayTotalOrders}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                      <i class="ni ni-money-coins"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12" style="display: flex;">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0" id="totalTodays_revenue-2-para">Total Revenue Today</h5>
+                    <span class="h2 font-weight-bold mb-0 masterDiv2" id="totalTodays_revenue-2">{{totalTodayRevenue}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                      <i class="ni ni-money-coins"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==================================================================================================================================================== -->
+<!-- ==================================================================================================================================================== -->
+<!-- ==================================================================================================================================================== -->
+<!-- ==================================================================================================================================================== -->
+
+
+  <div class="row">
+    <div class="col-xl-6" id='totalOrderFilterdiv'>
+      <div class="card">
+        <div class="card-header border-0" style="background-color: #c4ccf9;">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Total Orders</h3>
+            </div>
+            <div class="col text-right">
+              <select class="form-select btn btn-sm btn-primary" id="totalOrderFilter" aria-label="Default select example" onchange="filter_total_orders()">
+                <option class="d-none">Filter</option>
+                <option value="All Time">All Time</option>
+                <option value="Today" selected>Today</option>
+                <!-- <option value="yesterday">Yesterday</option> -->
+                <option value="Last 7 Days">Last 7 Days</option>
+                <option value="Current Month">Current Month</option>
+                <option value="Last Month">Last Month</option>
+                <!-- <option value="custom">Date Wise</option> -->
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12" style="display: flex;">
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">No. of Orders - Total</h5>
+                <p class="card-text total_order_filter" id="total_order_total" style="font-size: large;font-weight: 900;">{{todayTotalOrders}}</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">No. of Orders - Created</h5>
+                <p class="card-text total_order_filter" id="total_order_created" style="font-size: large;font-weight: 900;">{{totalCreatedOrders_today}}</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">No. of Orders - Failed</h5>
+                <p class="card-text total_order_filter" id="total_order_failed" style="font-size: large;font-weight: 900;">{{failedOrders_today}}</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12" style="display: flex;">
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">No. of Orders - Processed</h5>
+                <p class="card-text total_order_filter" id="total_order_procesed" style="font-size: large;font-weight: 900;">{{ProcessedOrders_today}}</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">No. of Orders - Shipped</h5>
+                <p class="card-text total_order_filter" id="total_order_open" style="font-size: large;font-weight: 900;">{{shippedOrders_today}}</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">No. of Orders - Cancelled</h5>
+                <p class="card-text total_order_filter" id="total_order_cancelled" style="font-size: large;font-weight: 900;">{{cancelledOrders_today}}</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-header border-0" style="background-color: #c4ccf9;">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Total Listings</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12" style="display: flex;">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total Listings</h5>
+                <p class="card-text" style="font-size: large;font-weight: 900;">{{totalListings}}</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Live Listings</h5>
+                <p class="card-text" style="font-size: large;font-weight: 900;">{{liveListings}}</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12" style="display: flex;">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Sold Out Listings</h5>
+                <p class="card-text" style="font-size: large;font-weight: 900;">{{outOfStockListings}}</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Unpublished Listings</h5>
+                <p class="card-text" style="font-size: large;font-weight: 900;">{{unpublishedListings}}</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-6" id="categoryFilterDiv">
+    <div class="card">
+      <div class="card-header" style="background-color: #c4ccf9;">
+        <div class="row align-items-center">
+          <div class="col">
+            <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
+            <h5 class="h3 mb-0">Category Wise Product Sale</h5>
+          </div>
+          
+          <div class="col text-right">
+            <button id="cat-spinner" style="display: ;" class="btn btn-primary btn-sm" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Loading...
+            </button>
+            <!-- <a href="#!" class="btn btn-sm btn-primary active">Today</a>
+            <a href="#!" class="btn btn-sm btn-primary">Last 7 Days</a>
+            <a href="#!" class="btn btn-sm btn-primary">Date Wise</a> -->
+            <select id="cat-filter" style="display: none;"  class="form-select btn btn-sm btn-primary" aria-label="Default select example" onchange="categoryFilter()">
+              <option class="d-none">Filter</option>
+              <option value="All Time">All Time</option>
+              <option value="Today" selected>Today</option>
+              <!-- <option value="yesterday">Yesterday</option> -->
+              <option value="Last 7 Days">Last 7 Days</option>
+              <option value="Current Month">Current Month</option>
+              <option value="Last Month">Last Month</option>
+              <!-- <option value="custom">Date Wise</option> -->
+              </select>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Chart -->
+        <div class="chart" id="categoryChartCanvasDiv">
+          <canvas id="chart-bars" class="chart-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <div class="card bg-default">
+      <div class="card-header bg-transparent">
+        <div class="row align-items-center">
+          <div class="col">
+            <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
+            <h5 class="h3 text-white mb-0">Revenue</h5>
+          </div>
+          <div class="col">
+            {% comment %} <ul class="nav nav-pills justify-content-end">
+              <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark"
+                data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 0, 0, 0]}]}}' data-prefix="$"
+                data-suffix="k">
+                <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
+                  <span class="d-none d-md-block">Month</span>
+                  <span class="d-md-none">M</span>
+                </a>
+              </li>
+              <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark"
+                data-update='{"data":{"datasets":[{"data":[0, 20, 55, 25, 10, 30, 0, 0, 0]}]}}' data-prefix="$"
+                data-suffix="k">
+                <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
+                  <span class="d-none d-md-block">Week</span>
+                  <span class="d-md-none">W</span>
+                </a>
+              </li>
+            </ul> {% endcomment %}
+            <div class="col text-right">
+              <!-- <a href="#!" class="btn btn-sm btn-primary active">Today</a>
+              <a href="#!" class="btn btn-sm btn-primary">Last 7 Days</a>
+              <a href="#!" class="btn btn-sm btn-primary">Date Wise</a> -->
+              <select class="form-select btn btn-sm btn-primary" id="revenueYear" onchange="geRevenuetGraphData()" aria-label="Default select example">
+                <option class="d-none">Filter</option>
+                <option value="2021" selected>2021</option>
+                <option value="2020">2020</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body"  id="revenueGraphDiv">
+        <!-- Chart -->
+        <div class="chart">
+          <!-- Chart wrapper -->
+          <canvas id="chart-sales-dark" class="chart-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-header" style="background-color: #c4ccf9;">
+        <div class="row align-items-center">
+          <div class="col">
+            <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
+            <h5 class="h3 mb-0">Revenue Order Path</h5>
+          </div>
+          <div class="col text-right">
+            <select class="form-select btn btn-sm btn-primary" aria-label="Default select example">
+                <option class="d-none">Filter</option>
+                <option value="1">Today</option>
+                <option value="2">Last 7 Days</option>
+                <option value="3">Last Month</option>
+                <option value="3">Date Wise</option>
+              </select>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Chart -->
+        <div class="chart">
+          <canvas id="chart-bars1" class="chart-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-header" style="background-color: #c4ccf9;">
+        <div class="row align-items-center">
+          <div class="col">
+            <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
+            <h5 class="h3 mb-0">Traffic Path</h5>
+          </div>
+          <div class="col text-right">
+            <!-- <a href="#!" class="btn btn-sm btn-primary active">Today</a>
+            <a href="#!" class="btn btn-sm btn-primary">Last 7 Days</a>
+            <a href="#!" class="btn btn-sm btn-primary">Date Wise</a> -->
+            <select class="form-select btn btn-sm btn-primary" aria-label="Default select example">
+                <option class="d-none">Filter</option>
+                <option value="1">Today</option>
+                <option value="2">Last 7 Days</option>
+                <option value="3">Last Month</option>
+                <option value="3">Date Wise</option>
+              </select>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Chart -->
+        <div class="chart">
+          <canvas id="chart-bars2" class="chart-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-header border-0" style="background-color: #c4ccf9;">
+        <div class="row align-items-center">
+          <div class="col">
+            <h3 class="mb-0">Top Impressions</h3>
+          </div>
+          <!-- <div class="col text-right">
+                  <a href="#!" class="btn btn-sm btn-primary active">Today</a>
+                  <a href="#!" class="btn btn-sm btn-primary">Last 7 Days</a>
+                  <a href="#!" class="btn btn-sm btn-primary">Date Wise</a>
+                </div> -->
+        </div>
+      </div>
+      <div class="table-responsive">
+        <!-- Projects table -->
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Products</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for items in topImpressions %}
+            <tr>
+              <th scope="row">
+                <i class="fas fa-chevron-circle-right"></i>  &nbsp;{{items.name}}
+              </th>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-header border-0" style="background-color: #c4ccf9;">
+        <div class="row align-items-center">
+          <div class="col">
+            <h3 class="mb-0">Top Quantity Sold</h3>
+          </div>
+          <!-- <div class="col text-right">
+                  <a href="#!" class="btn btn-sm btn-primary active">Today</a>
+                  <a href="#!" class="btn btn-sm btn-primary">Last 7 Days</a>
+                  <a href="#!" class="btn btn-sm btn-primary">Date Wise</a>
+                </div> -->
+        </div>
+      </div>
+      <div class="table-responsive">
+        <!-- Projects table -->
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Products</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for items in topImpressions %}
+            <tr>
+              <th scope="row">
+                <i class="fas fa-chevron-circle-right"></i> &nbsp;{{items.name}}
+              </th>
+              <td>
+                <strong>{{items.num_of_sale}}</strong>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} {% include "includes/footer.html" %} {% endcomment %}
+
+</div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+<script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+<!-- custom filter javascript files -->
+<script src="/static/assets/js/dashboard_totalOrderFilter.js"></script>
+<script src="/static/assets/js/dashboard_topBoxFilter.js"></script>
+<script src="/static/assets/js/dashboardMasterFilter.js"></script>
+<script src="/static/assets/js/dashboardCategoryWiseFilter.js"></script>
+<!-- ------------------------------ -->
+{% endblock javascripts %}
